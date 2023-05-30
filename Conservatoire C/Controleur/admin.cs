@@ -64,10 +64,10 @@ namespace Conservatoire_C.Controleur
             foreach(Trimestre unTrimestre in lesTrimestres)
             {
                 string libelle = unTrimestre.Libelle;
-                bool verifpaye = PersonneDAO.verifpayement(idselectionnereleve, libelle);
+                bool verifpaye = PersonneDAO.verifpaiement(idselectionnereleve, libelle);
                 if (verifpaye == true)
                 {
-                    Trimestre payeOui = PersonneDAO.detaillepayement(idselectionnereleve, libelle);
+                    Trimestre payeOui = PersonneDAO.detaillepaiement(idselectionnereleve, libelle);
                     lesTrimestreseleves.Add(payeOui);
                     
                 }
@@ -84,6 +84,19 @@ namespace Conservatoire_C.Controleur
         {
             PersonneDAO.Inserpay(idEleve, libelle);
 
+        }
+
+        public static List<Seance> chargementSeance(int idProf)
+        {
+            List<Seance> lesseances = PersonneDAO.chargementSeance(idProf);
+            return lesseances;
+        }
+
+
+        public static List<Eleve> chargementEleves(int numSeance)
+        {
+            List<Eleve> listEleves = PersonneDAO.chargementEleves(numSeance);
+            return (listEleves);
         }
     }
 

@@ -12,7 +12,7 @@ namespace Conservatoire_C.Modele
         private string datefin;
         private int ideleve;
         private int payer;
-        private string datepayement;
+        private string datepaiement;
        
 
         public Trimestre(string libelle, string datefin)
@@ -22,11 +22,11 @@ namespace Conservatoire_C.Modele
       
         }
 
-        public Trimestre(int ideleve, string libelle, string datepayement, int payer)
+        public Trimestre(int ideleve, string libelle, string datepaiement, int payer)
         {
             this.ideleve = ideleve;
             this.libelle = libelle;
-            this.datepayement = datepayement;
+            this.datepaiement = datepaiement;
             this.payer = payer;
         }
 
@@ -36,19 +36,19 @@ namespace Conservatoire_C.Modele
         public string Datefin { get => datefin; set => datefin = value; }
         public int Ideleve { get => ideleve; set => ideleve = value; }
         public int Payer { get => payer; set => payer = value; }
-        public string Datepayement { get => datepayement; set => datepayement = value; }
+        public string Datepaiement { get => datepaiement; set => datepaiement = value; }
 
 
         public override string ToString()
         {
             if(payer== 1)
             {
-                return libelle + " payé le : " + datepayement;
+                return libelle + " payé le : " + datepaiement;
             }
             else
             {
 
-                return libelle + " non payé, date limite pour le payement : " + datefin;
+                return libelle + " non payé, date limite pour le paiement : " + datefin;
 
             }
         }

@@ -333,7 +333,7 @@ namespace Conservatoire_C.DAL
             }
         }
 
-        public static bool verifpayement(int idselectionnereleve, string libelle)
+        public static bool verifpaiement(int idselectionnereleve, string libelle)
         {
             bool res = false;
 
@@ -375,7 +375,7 @@ namespace Conservatoire_C.DAL
             return res;
         }
 
-        public static Trimestre detaillepayement(int idselectionnereleve, string libelle)
+        public static Trimestre detaillepaiement(int idselectionnereleve, string libelle)
         {
            
             Trimestre Trim = new Trimestre(0, "", "", 0);
@@ -403,12 +403,12 @@ namespace Conservatoire_C.DAL
 
                     int ideleve = (int)reader.GetValue(0);
                     string libellepaye = (string)reader.GetValue(1);
-                    string datepayement = (string)reader.GetValue(2);
+                    string datepaiement = (string)reader.GetValue(2);
                     int paye = (int)reader.GetValue(3);
 
 
 
-                    Trim = new Trimestre(ideleve, libellepaye, datepayement, paye);
+                    Trim = new Trimestre(ideleve, libellepaye, datepaiement, paye);
 
                     
                 }
@@ -443,6 +443,99 @@ namespace Conservatoire_C.DAL
                 Ocom.ExecuteNonQuery();
                 maConnexionSql.closeConnection();
                
+            }
+
+            catch (Exception emp)
+            {
+
+                throw (emp);
+
+            }
+        }
+
+        public static List<Seance> chargementSeance(int idProf)
+        {
+            List<Seance> seances= new List<Seance>();
+
+            try
+            {
+                maConnexionSql = ConnexionSql.getInstance(provider, dataBase, uid, mdp);
+                maConnexionSql.openConnection();
+
+                Ocom = maConnexionSql.reqExec("SELECT * FROM seance Where IDPROF= " + idProf);
+                MySqlDataReader reader = Ocom.ExecuteReader();
+
+                Seance s;
+
+                while (reader.Read())
+                {
+
+
+                    int id = (int)reader.GetValue(0);
+                    int numseance = (int)reader.GetValue(1);
+                    string tranche = (string)reader.GetValue(2);
+                    string jour = (string)reader.GetValue(3);
+                    int niveau = (int)reader.GetValue(4);
+                    int capacite = (int)reader.GetValue(5);
+
+
+
+
+                    s = new Seance(id, numseance, tranche, jour, niveau, capacite);
+                    seances.Add(s);
+                }
+                reader.Close();
+
+                maConnexionSql.closeConnection();
+
+                return (seances);
+            }
+
+            catch (Exception emp)
+            {
+
+                throw (emp);
+
+            }
+        }
+
+        public static List<Eleve> chargementEleves(int numSeance)
+        {
+            List<Eleve> listeeleves = new List<Eleve>();
+
+            try
+            {
+                maConnexionSql = ConnexionSql.getInstance(provider, dataBase, uid, mdp);
+                maConnexionSql.openConnection();
+
+                Ocom = maConnexionSql.reqExec("SELECT eleve.IDELEVE, nom, prenom, tel, mail, adresse, bourse FROM eleve JOIN inscription ON eleve.IDELEVE = inscription.IDELEVE JOIN personne ON eleve.IDELEVE = personne.ID WHERE inscription.NUMSEANCE= " + numSeance);
+                MySqlDataReader reader = Ocom.ExecuteReader();
+
+                Eleve e;
+
+                while (reader.Read())
+                {
+
+
+                    int ideleve = (int)reader.GetValue(0);
+                    string nom = (string)reader.GetValue(1);
+                    string prenom = (string)reader.GetValue(2);
+                    int tel = (int)reader.GetValue(3);
+                    string mail = (string)reader.GetValue(4);
+                    string adresse = (string)reader.GetValue(5);
+                    int bourse = (int)reader.GetValue(6);
+
+
+
+
+                    e = new Eleve(ideleve, nom, prenom, tel, mail, adresse, bourse);
+                    listeeleves.Add(e);
+                }
+                reader.Close();
+
+                maConnexionSql.closeConnection();
+
+                return (listeeleves);
             }
 
             catch (Exception emp)

@@ -89,5 +89,15 @@ namespace Conservatoire_C
             listeEleve lesEleves=new listeEleve();
             lesEleves.ShowDialog();
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Professeur prof =(Professeur)listBoxPersonne.SelectedItem;
+
+            Séance_du_prof afficheSprof = new Séance_du_prof(prof);
+            afficheSprof.ShowDialog();
+
+            
+        }
     }
 }

@@ -86,11 +86,11 @@ namespace Conservatoire_C.Vue
             if ((Trimestre)listBox2.SelectedItem != null)
             {
                 Trimestre trimeleve = (Trimestre)listBox2.SelectedItem;
-                int etatpayement = trimeleve.Payer;
-                if (etatpayement == 0)
+                int etatpaiement = trimeleve.Payer;
+                if (etatpaiement == 0)
                 {
-                    string datepayement = trimeleve.Datefin;
-                    DateTime dateTrimestre = DateTime.ParseExact(datepayement, "dd/MM/yyyy", new CultureInfo("fr-FR", true));
+                    string datepaiement = trimeleve.Datefin;
+                    DateTime dateTrimestre = DateTime.ParseExact(datepaiement, "dd/MM/yyyy", new CultureInfo("fr-FR", true));
                     DateTime todayDate = DateTime.Today;
 
                     if(dateTrimestre >= todayDate)
